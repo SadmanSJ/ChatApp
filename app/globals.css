@@ -2,32 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  .body {
+    @apply flex min-h-screen bg-slate-50 dark:bg-neutral-900 transition-all;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .loginFormContainer {
+    @apply flex flex-col items-center border p-3 rounded-md;
+  }
+  .loginFormLabel {
+    @apply w-full flex items-center  justify-start px-3;
+  }
+  .loginFormInput {
+    @apply bg-slate-700 px-3 py-2 mb-4 w-72 rounded focus:outline-none;
+  }
+  .submitButton {
+    @apply px-4 py-2 rounded-md border;
+  }
+  .icon {
+    @apply text-neutral-400;
   }
 }
