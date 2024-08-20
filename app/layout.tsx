@@ -5,13 +5,14 @@ import Navbar from "@/components/UI/Navbar";
 import dynamic from "next/dynamic";
 import { inter, kanit } from "./fonts";
 import { getServerSession } from "next-auth";
-import { authOption } from "./api/auth/[...nextauth]/route";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NextAuthSessionProvider from "./NextAuthSessionProvider";
 import Sidebar from "@/components/UI/Sidebar";
 import { ApolloWrapper } from "@/lib/ApolloProvider";
 import MainView from "@/components/UI/MainView";
+import { authOption } from "@/lib/authOptions";
 
 const ThemeProvider = dynamic(() => import("@/app/ThemeProvider"), {
   ssr: false,

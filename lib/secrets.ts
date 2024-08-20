@@ -1,4 +1,4 @@
-export const jwtSecret = `${process.env.JWT_SECRET}`;
+export const jwtSecret = `${process.env.NEXTAUTH_SECRET}`;
 
 export const nextAuthSecret = `${process.env.NEXTAUTH_SECRET}`;
 

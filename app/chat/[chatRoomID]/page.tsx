@@ -1,6 +1,6 @@
-import { authOption } from "@/app/api/auth/[...nextauth]/route";
 import ChatBox from "@/components/UI/ChatBox";
 import InputBox from "@/components/UI/InputBox";
+import { authOption } from "@/lib/authOptions";
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { getServerSession } from "next-auth";
