@@ -7,14 +7,14 @@ import { Session } from "next-auth";
 
 interface Props {
   children: ReactNode;
-  session: Session | null;
+  session: Session;
 }
 
 export default function MainView({ children, session }: Props) {
   const { showSidebar, setShowSidebar } = useAppStore();
   return (
     <div className="relative flex w-full">
-      {session && <Sidebar session={session} />}
+      <Sidebar session={session} />
       <div
         className={`fixed inset-x-0 flex-1 transition-all duration-300 ${
           showSidebar ? "ml-[100%] sm:ml-[420px]" : "ml-0 lg:ml-[420px]"

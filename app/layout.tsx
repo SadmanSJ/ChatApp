@@ -41,7 +41,11 @@ export default async function RootLayout({
             enableColorScheme
           >
             <ApolloWrapper>
-              <MainView session={session}>{children}</MainView>
+              {session ? (
+                <MainView session={session}>{children}</MainView>
+              ) : (
+                <main className="p-4 w-full">{children}</main>
+              )}
               <ToastContainer />
             </ApolloWrapper>
           </ThemeProvider>
