@@ -16,9 +16,9 @@ export interface OTP {
 // ~~
 export interface UserIF {
   _id: string;
-  name: string;
-  // email: string;
-  mobile: string;
+  name?: string;
+  email?: string;
+  mobile?: string;
   password: string;
   role: string;
   otp: string | undefined;
@@ -35,16 +35,23 @@ export interface ChatRoomAccessIF {
 
 export interface ChatRoomIF {
   _id: string;
+  participants: UserIF[];
+  type: "personal" | "group";
   title: string;
-  createdBy: UserIF;
-  status: "acknowledged" | "pending" | "solved" | "unsolved";
-  chats: { chat: ChatIF }[];
+  admins: UserIF[];
+  chats: ChatIF[];
   createdAt: Date;
 }
 
 export interface ChatIF {
+  _id: string;
   sentByUser: UserIF;
   chatRoom: ChatRoomIF;
-  message: string;
-  createdAt: Date;
+  message: MessageIF;
+  isUnsent: boolean;
+}
+
+export interface MessageIF {
+  attachment: string;
+  text: string;
 }

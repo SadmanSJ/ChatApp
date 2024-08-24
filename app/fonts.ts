@@ -1,4 +1,4 @@
-import { Inter, Kanit } from "next/font/google";
+import { Inter, Kanit, Roboto } from "next/font/google";
 
 export const inter = Inter({
   subsets: ["latin"],
@@ -11,4 +11,11 @@ export const kanit = Kanit({
   display: "swap",
   subsets: ["latin"],
   variable: "--font-kanit",
+});
+
+export const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-roboto",
 });

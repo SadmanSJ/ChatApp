@@ -4,28 +4,32 @@ import { gql, useMutation } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import React, { useRef } from "react";
 import { MdSend, MdScheduleSend } from "react-icons/md";
+import { ImAttachment } from "react-icons/im";
 import SubmitButton from "../Buttons/SubmitButton";
 import { Session } from "next-auth";
 
+import { ChatRoomIF } from "@/interface";
+
 interface Props {
-  currentChatRoomID: string | null;
+  currentChatRoom: ChatRoomIF | null;
   session: Session | null;
 }
 
-export default function InputBox({ currentChatRoomID, session }: Props) {
-  const { setCurrentChatRoomID } = useAppStore();
+export default function InputBox({ currentChatRoom, session }: Props) {
+  const { setCurrentChatRoom } = useAppStore();
 
   const formRef = useRef<any>(null);
 
   const [addChat] = useMutation(CreateChat);
 
   const sendChat = (data: FormData) => {
-    const message = data.get("message");
+    const text = data.get("message");
+    const message = { text };
 
     addChat({
       variables: {
         record: {
-          chatRoomID: currentChatRoomID,
+          chatRoomID: currentChatRoom?._id,
           message: message,
           sentByUserID: session?.user._id,
         },
@@ -35,36 +39,48 @@ export default function InputBox({ currentChatRoomID, session }: Props) {
       },
       onCompleted(data, clientOptions) {
         console.log(data);
-        setCurrentChatRoomID(data.addChat.chatRoom._id);
+        // setCurrentChatRoomID(data.addChat.chatRoom._id);
         formRef.current.reset();
       },
-      refetchQueries: "active",
     });
   };
 
   return (
-    <div className="sticky bottom-0 w-full flex items-center justify-center pb-8 bg-slate-100 dark:bg-slate-950">
-      <div className="bg-gray-200 shadow-inner dark:bg-gray-800 max-w-[800px] w-full p-4 rounded-2xl mx-4">
-        <form
-          ref={formRef}
-          action={sendChat}
-          className="flex items-end space-x-2"
-        >
-          <textarea
-            className="w-full min-h-14 resize-none focus:outline-none bg-transparent"
+    <div className="sticky bottom-0 w-full flex items-center justify-center pb-8 bg-neutral-900">
+      <form
+        ref={formRef}
+        action={sendChat}
+        // className="flex items-end space-x-2"
+        className="w-full flex space-x-3"
+      >
+        <div className="w-full bg-neutral-800 rounded-full flex items-center px-3">
+          {/* <input
+            type="text"
             name="message"
             id="message"
-            placeholder="Type here"
+            placeholder="Message"
+            className="bg-transparent w-full focus:outline-none"
+          /> */}
+          <textarea
+            name="message"
+            id="message"
+            title="Message"
+            placeholder="Message"
+            rows={1}
+            className="w-full bg-transparent min-h-6 focus:outline-none resize-none p-2"
           ></textarea>
-          <SubmitButton
-            className="flex items-center"
-            type="submit"
-            LoadingIcon={<MdScheduleSend size={26} />}
-          >
-            <MdSend size={26} />
-          </SubmitButton>
-        </form>
-      </div>
+          <button title="Attachment" type="button">
+            <ImAttachment size={20} className="icon" />
+          </button>
+        </div>
+        <button
+          title="Send"
+          className="flex flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 w-14 aspect-square"
+          type="submit"
+        >
+          <MdSend className="shrink-0" size={26} />
+        </button>
+      </form>
     </div>
   );
 }
@@ -73,7 +89,10 @@ const CreateChat = gql`
   mutation AddChat($record: ChatInput) {
     addChat(record: $record) {
       _id
-      message
+      message {
+        text
+        attachment
+      }
       sentByUser {
         _id
       }

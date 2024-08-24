@@ -4,7 +4,7 @@
 
 @layer base {
   .body {
-    @apply flex min-h-screen bg-slate-50 dark:bg-neutral-900 transition-all;
+    @apply flex min-h-screen bg-slate-50 dark:bg-neutral-900 select-none;
   }
 }
 
@@ -23,5 +23,11 @@
   }
   .icon {
     @apply text-neutral-400;
+  }
+  .sidebar {
+    @apply fixed inset-y-0 w-full sm:w-[420px] border-r border-neutral-900 h-full bg-neutral-800 transition-all duration-300 overflow-hidden;
+  }
+  .sidebarContainerView {
+    @apply w-full sm:w-[420px] h-full  px-2 flex flex-col shrink-0 pb-16 overflow-auto overscroll-contain;
   }
 }

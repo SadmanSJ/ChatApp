@@ -32,7 +32,8 @@ const wsLink =
     ? new GraphQLWsLink(
         createClient({
           // url: `ws://localhost:8000/api/subscription`,
-          url: `${publicApiWs}/subscription`,
+          // url: `${publicApiWs}/subscription`,
+          url: `${publicApiWs}/graphql`,
           shouldRetry(errOrCloseEvent) {
             return true;
           },

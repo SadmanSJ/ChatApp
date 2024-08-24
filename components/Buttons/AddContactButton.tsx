@@ -2,8 +2,9 @@ import { useAppStore } from "@/store";
 import React, { useState } from "react";
 import { BiSolidPencil } from "react-icons/bi";
 import { HiOutlineUser, HiOutlineUsers } from "react-icons/hi2";
+import { MdAdd } from "react-icons/md";
 
-export default function NewChatButton() {
+export default function AddContactButton() {
   const [showMenu, setShowMenu] = useState(false);
   const { setShowUserSearchView } = useAppStore();
   return (
@@ -41,7 +42,7 @@ export default function NewChatButton() {
         type="button"
         className="absolute bottom-0 right-0 w-14 flex items-center justify-center aspect-square rounded-full bg-purple-600"
       >
-        <BiSolidPencil size={26} />
+        <MdAdd size={26} />
       </button>
     </div>
   );

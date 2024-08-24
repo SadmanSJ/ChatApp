@@ -1,7 +1,15 @@
-import { apiBackend, nextAuthSecret } from "@/lib/secrets";
+import {
+  apiBackend,
+  googleClientId,
+  googleClientSecret,
+  nextAuthSecret,
+} from "@/lib/secrets";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
+let user: any;
 
 export const authOption: NextAuthOptions = {
   providers: [
@@ -43,10 +51,43 @@ export const authOption: NextAuthOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
+    }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      session.user = token;
+    // async signIn({ user, account, profile }) {
+    //   // console.log("user", user);
+    //   // console.log("account", account);
+    //   // console.log("profile", user);
+
+    //   const { data } = await axios.post(apiBackend + "/user/googleLogin", {
+    //     email: user.email,
+    //     name: user.name,
+    //     image: user.image,
+    //   });
+    //   user = data.user;
+    //   // console.log("lgdata", data);
+
+    //   return true;
+    // },
+    async session({ session, token }) {
+      console.log("s", session);
+      if (token.id) {
+        const { data } = await axios.post(apiBackend + "/user/googleLogin", {
+          email: session.user.email,
+          name: session.user.name,
+          image: session.user.image,
+        });
+
+        console.log(data);
+
+        session.user._id = data.user._id;
+      } else {
+        session.user = token;
+      }
+
       return session;
     },
     async jwt({ token, user, session, trigger }) {

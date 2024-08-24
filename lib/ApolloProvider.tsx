@@ -37,7 +37,8 @@ function makeClient() {
     typeof window != "undefined"
       ? new GraphQLWsLink(
           createClient({
-            url: `${publicApiWs}/subscription`,
+            // url: `${publicApiWs}/subscription`,
+            url: `${publicApiWs}/graphql`,
             shouldRetry(errOrCloseEvent) {
               return true;
             },

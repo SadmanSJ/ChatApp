@@ -13,7 +13,7 @@ interface Props {
 async function ChatReplay({ params }: Props) {
   const session = await getServerSession(authOption);
 
-  const data = await getClient().query({
+  const { data } = await getClient().query({
     query: GetChatRoom,
     variables: {
       filter: {
@@ -27,10 +27,10 @@ async function ChatReplay({ params }: Props) {
     <div>
       <h1>Admin Chat</h1>
       <Suspense>
-        <ChatBox currentChatRoomID={params.chatRoomID} session={session} />
+        <ChatBox currentChatRoom={data.chatRoom} session={session} />
       </Suspense>
       <Suspense>
-        <InputBox currentChatRoomID={params.chatRoomID} session={session} />
+        <InputBox currentChatRoom={data.chatRoom} session={session} />
       </Suspense>
     </div>
   );

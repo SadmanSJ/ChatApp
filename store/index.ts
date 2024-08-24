@@ -1,25 +1,38 @@
+import { ChatRoomIF, UserIF } from "@/interface";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-interface AppStoreIF {
+type State = {
   showSidebar: boolean;
-  currentChatRoomID: string | null;
-  setShowSidebar: (value: boolean) => void;
-  setCurrentChatRoomID: (value: string | null) => void;
-}
+  showUserSearchView: boolean;
+  selectedUser: UserIF | null;
+  currentChatRoom: ChatRoomIF | null;
+};
+
+type Action = {
+  setShowSidebar: (value: State["showSidebar"]) => void;
+  setShowUserSearchView: (value: State["showUserSearchView"]) => void;
+  setSelectedUser: (value: State["selectedUser"]) => void;
+  setCurrentChatRoom: (value: State["currentChatRoom"]) => void;
+};
 
 const initialState: any = {
   showSidebar: true,
-  currentChatRoomID: null,
+  showUserSearchView: false,
+  selectedUser: null,
+  currentChatRoom: null,
 };
 
 const useAppStore = create(
-  persist<AppStoreIF>(
+  persist<State & Action>(
     (set, get) => ({
       ...initialState,
       setShowSidebar: (value) => set((state) => ({ showSidebar: value })),
-      setCurrentChatRoomID: (value) =>
-        set((state) => ({ currentChatRoomID: value })),
+      setShowUserSearchView: (value) =>
+        set(() => ({ showUserSearchView: value })),
+      setSelectedUser: (value) => set(() => ({ selectedUser: value })),
+      setCurrentChatRoom: (value) =>
+        set((state) => ({ currentChatRoom: value })),
     }),
     { name: "appStore", storage: createJSONStorage(() => sessionStorage) }
   )
