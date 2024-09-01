@@ -1,18 +1,15 @@
 "use client";
-import React from "react";
+import React, { Fragment } from "react";
 
 import { gql, useLazyQuery, useSuspenseQuery } from "@apollo/client";
 
 import { Session } from "next-auth";
 
-import SearchBar from "./SearchBar";
-
-import { FaArrowLeft } from "react-icons/fa";
-
 import AddContactButton from "../Buttons/AddContactButton";
 import ListCard from "./ListCard";
 import { UserIF } from "@/interface";
 import { useAppStore } from "@/store";
+import Navbar from "./Navbar";
 
 interface Props {
   session: Session;
@@ -24,7 +21,8 @@ type Data = {
 };
 
 function SidebarUserSearchView({ session, className }: Props) {
-  const { setShowUserSearchView, setCurrentChatRoom } = useAppStore();
+  const { setUserSearchOpen, isShowUserSearchOpen, setCurrentChatRoom } =
+    useAppStore();
 
   const { data, error } = useSuspenseQuery<Data>(GetUsers);
   const [getPersonalChatRoom] = useLazyQuery(GetPersonalChatRoom);
@@ -51,22 +49,17 @@ function SidebarUserSearchView({ session, className }: Props) {
       },
     });
 
-    setShowUserSearchView(false);
+    setUserSearchOpen(false);
   };
 
   return (
-    <div className={`relative ${className}`}>
-      <div className="h-16 w-full p-2 flex items-center space-x-4 bg-neutral-800">
-        <div className="h-full flex items-center pl-4 cursor-pointer">
-          <FaArrowLeft
-            onClick={() => setShowUserSearchView(false)}
-            className="icon"
-            size={20}
-          />
-        </div>
-        <SearchBar />
-      </div>
-      <div className="sidebarContainerView">
+    <div
+      className={`sidebarContainerView ${
+        isShowUserSearchOpen ? "w-full md:w-100" : "w-0 overflow-hidden"
+      }`}
+    >
+      <Navbar isSidebarNav isSidebarUserSearch />
+      <div className="sidebarListView">
         {data.users
           .filter((f) => f._id !== session.user._id)
           .map((m, i) => (
@@ -110,15 +103,3 @@ const GetPersonalChatRoom = gql`
     }
   }
 `;
-
-const chatRooms = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-];

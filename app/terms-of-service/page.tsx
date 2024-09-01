@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const TermsOfService = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 overflow-auto">
       <h1 className="text-2xl font-bold mb-4">Terms and Conditions</h1>
       <p className="mb-4">Effective Date: {"September 1, 2024"}</p>
 
@@ -69,9 +69,9 @@ const TermsOfService = () => {
         9. Liabilities and Warranties
       </h2>
       <p className="mb-4">
-        ChatApp is provided "as-is" without any warranties of any kind. We do
+        {`     ChatApp is provided "as-is" without any warranties of any kind. We do
         not take any responsibility for issues such as downtime, data loss, or
-        misuse of the app.
+        misuse of the app.`}
       </p>
 
       <h2 className="text-xl font-semibold mt-4">10. Governing Law</h2>

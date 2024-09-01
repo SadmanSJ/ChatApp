@@ -6,6 +6,8 @@ import { ChatRoomIF } from "@/interface";
 import { useAppStore } from "@/store";
 import SidebarChatListView from "./SidebarChatListView";
 import SidebarUserSearchView from "./SidebarUserSearchView";
+import Navbar from "./Navbar";
+import SidebarPlaceholder from "../Placeholders/SidebarPlaceholder";
 
 interface Props {
   session: Session;
@@ -16,43 +18,34 @@ type Data = {
 };
 
 function Sidebar({ session }: Props) {
-  const { showSidebar } = useAppStore();
+  const { isSidebarOpen, isShowUserSearchOpen } = useAppStore();
 
-  const { showUserSearchView } = useAppStore();
+  // const { data, error } = useSuspenseQuery<Data>(GetChatRooms, {
+  //   variables: { filter: { createdByID: session.user._id } },
+  // });
 
-  const { data, error } = useSuspenseQuery<Data>(GetChatRooms, {
-    variables: { filter: { createdByID: session.user._id } },
-  });
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
   return (
-    <div
+    <aside
       className={`sidebar ${
-        showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        isSidebarOpen ? "w-full md:w-100" : "w-0 xl:w-100"
       }`}
     >
-      <div
-        className={`absolute inset-y-0 w-full flex transition-all duration-300 ${
-          showUserSearchView ? "-translate-x-full" : "translate-x-0"
-        }`}
-      >
-        <Suspense>
-          <SidebarChatListView
-            session={session}
-            className={!showUserSearchView ? "opacity-100" : "opacity-0"}
-          />
-        </Suspense>
-        <Suspense>
-          <SidebarUserSearchView
-            session={session}
-            className={showUserSearchView ? "opacity-100" : "opacity-0"}
-          />
-        </Suspense>
-      </div>
-    </div>
+      <Suspense fallback={<SidebarPlaceholder />}>
+        <SidebarChatListView
+          session={session}
+          className={!isShowUserSearchOpen ? "opacity-100" : "opacity-0"}
+        />
+      </Suspense>
+      <Suspense fallback={<SidebarPlaceholder />}>
+        <SidebarUserSearchView
+          session={session}
+          className={isShowUserSearchOpen ? "opacity-100" : "opacity-0"}
+        />
+      </Suspense>
+    </aside>
   );
 }
 
@@ -67,15 +60,3 @@ const GetChatRooms = gql`
     }
   }
 `;
-
-const chatRooms = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-];

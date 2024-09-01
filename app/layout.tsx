@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${roboto.variable} body font-roboto`}>
+      <body className={`${inter.variable} ${roboto.variable} font-roboto`}>
         <NextAuthSessionProvider>
           <ThemeProvider
             defaultTheme="system"
@@ -41,11 +41,7 @@ export default async function RootLayout({
             enableColorScheme
           >
             <ApolloWrapper>
-              {session ? (
-                <MainView session={session}>{children}</MainView>
-              ) : (
-                <main className="p-4 w-full">{children}</main>
-              )}
+              {children}
               <ToastContainer />
             </ApolloWrapper>
           </ThemeProvider>

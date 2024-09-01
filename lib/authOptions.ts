@@ -35,7 +35,7 @@ export const authOption: NextAuthOptions = {
             // otp,
           });
 
-          console.log("l-d-", data);
+          // console.log("l-d-", data);
 
           const user = data.user;
 
@@ -73,7 +73,7 @@ export const authOption: NextAuthOptions = {
     //   return true;
     // },
     async session({ session, token }) {
-      console.log("s", session);
+      // console.log("s", session);
       if (token.id) {
         const { data } = await axios.post(apiBackend + "/user/googleLogin", {
           email: session.user.email,
@@ -81,7 +81,7 @@ export const authOption: NextAuthOptions = {
           image: session.user.image,
         });
 
-        console.log(data);
+        // console.log(data);
 
         session.user._id = data.user._id;
       } else {
@@ -91,7 +91,7 @@ export const authOption: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user, session, trigger }) {
-      if (trigger === "update") return { ...token, ...session?.user };
+      // if (trigger === "update") return { ...token, ...session?.user };
       return { ...token, ...user };
     },
   },

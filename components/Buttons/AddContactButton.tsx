@@ -6,7 +6,7 @@ import { MdAdd } from "react-icons/md";
 
 export default function AddContactButton() {
   const [showMenu, setShowMenu] = useState(false);
-  const { setShowUserSearchView } = useAppStore();
+  const { setUserSearchOpen } = useAppStore();
   return (
     <div
       className="absolute bottom-6 right-6 group"
@@ -20,14 +20,14 @@ export default function AddContactButton() {
         onBlur={() => setShowMenu(false)}
       >
         <button
-          onClick={() => setShowUserSearchView(true)}
+          onClick={() => setUserSearchOpen(true)}
           className="flex items-center space-x-3 p-2 justify-start hover:bg-neutral-800 rounded-md cursor-pointer transition-colors duration-300"
         >
           <HiOutlineUsers size={20} />
           <div>New Group</div>
         </button>
         <button
-          onClick={() => setShowUserSearchView(true)}
+          onClick={() => setUserSearchOpen(true)}
           className="flex items-center space-x-3 p-2 justify-start hover:bg-neutral-800 rounded-md cursor-pointer transition-colors duration-300"
         >
           <HiOutlineUser size={20} />

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import NewConversationButton from "../Buttons/NewConversationButton";
 import { gql, useSuspenseQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
@@ -11,6 +11,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import SearchBar from "./SearchBar";
 import NewChatButton from "../Buttons/NewChatButton";
 import ListCard from "./ListCard";
+import Link from "next/link";
+import Navbar from "./Navbar";
+import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface Props {
   className?: string;
@@ -22,7 +26,11 @@ type Data = {
 };
 
 function SidebarChatListView({ session, className }: Props) {
-  const { setCurrentChatRoom } = useAppStore();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  console.log(isMobile);
+  const { setCurrentChatRoom, isShowUserSearchOpen, setSidebarOpen } =
+    useAppStore();
+  const pathname = usePathname();
 
   const { data, error } = useSuspenseQuery<Data>(GetChatRooms, {
     variables: { filter: { participant: session.user._id } },
@@ -32,34 +40,28 @@ function SidebarChatListView({ session, className }: Props) {
     return <div>{error.message}</div>;
   }
 
-  //   const handleSetChatRoom = (chatRoom: ChatRoomIF) => {
-  //     const participants = [user._id, session.user._id];
-
-  //     setCurrentChatRoom(res.getPersonalChatRoom);
-  //     });
-
-  //     setShowUserSearchView(false);
-  //   };
-
-  //   console.log(data);
-
   return (
-    <div className={`relative ${className}`}>
-      <div className="h-16 w-full p-2 flex items-center space-x-4 bg-neutral-800">
-        <div className="h-full flex items-center pl-4 ">
-          <GiHamburgerMenu className="icon" size={20} />
-        </div>
-        <SearchBar />
-      </div>
+    <div
+      className={`sidebarContainerView ${
+        isShowUserSearchOpen ? "w-0 overflow-hidden" : "w-full md:w-100"
+      }`}
+    >
+      <Navbar isSidebarNav />
       {data.chatRooms.length > 0 ? (
-        <div className="sidebarContainerView">
+        <div className="sidebarListView">
           {data.chatRooms.map((m, i) => (
-            <ListCard
+            <Link
               key={i}
-              type="chat"
-              chatRoom={m}
-              onClick={() => setCurrentChatRoom(m)}
-            />
+              href={`/chat/${m._id}`}
+              replace={pathname !== "/chat" ? true : false}
+              onClick={() => (isMobile ? setSidebarOpen(false) : null)}
+            >
+              <ListCard
+                type="chat"
+                chatRoom={m}
+                onClick={() => setCurrentChatRoom(m)}
+              />
+            </Link>
           ))}
         </div>
       ) : (
@@ -90,15 +92,3 @@ const GetChatRooms = gql`
     }
   }
 `;
-
-const chatRooms = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-];

@@ -1,5 +1,6 @@
-import ChatBox from "@/components/UI/ChatBox";
-import InputBox from "@/components/UI/InputBox";
+import ChatContainerPlaceholder from "@/components/Placeholders/ChatContainerPlaceholder";
+import ChatContainer from "@/components/UI/ChatContainer";
+import { ChatRoomIF } from "@/interface";
 import { authOption } from "@/lib/authOptions";
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
@@ -10,10 +11,16 @@ interface Props {
   params: { chatRoomID: string };
 }
 
+type Data = {
+  chatRoomByID: ChatRoomIF;
+};
+
 async function ChatReplay({ params }: Props) {
   const session = await getServerSession(authOption);
 
-  const { data } = await getClient().query({
+  if (!session) return <div>No Session</div>;
+
+  const { data } = await getClient().query<Data>({
     query: GetChatRoom,
     variables: {
       filter: {
@@ -23,14 +30,12 @@ async function ChatReplay({ params }: Props) {
     fetchPolicy: "no-cache",
   });
 
+  if (!data.chatRoomByID) return <div>No Data Found</div>;
+
   return (
-    <div>
-      <h1>Admin Chat</h1>
-      <Suspense>
-        <ChatBox currentChatRoom={data.chatRoom} session={session} />
-      </Suspense>
-      <Suspense>
-        <InputBox currentChatRoom={data.chatRoom} session={session} />
+    <div className="h-full">
+      <Suspense fallback={<ChatContainerPlaceholder />}>
+        <ChatContainer currentChatRoom={data.chatRoomByID} session={session} />
       </Suspense>
     </div>
   );
@@ -39,11 +44,15 @@ async function ChatReplay({ params }: Props) {
 export default ChatReplay;
 
 const GetChatRoom = gql`
-  query ChatRoom {
-    chatRoom {
+  query ChatRoom($filter: ChatRoomFilter) {
+    chatRoomByID(filter: $filter) {
       _id
-      type
       title
+      type
+      participants {
+        _id
+      }
+      createdAt
     }
   }
 `;

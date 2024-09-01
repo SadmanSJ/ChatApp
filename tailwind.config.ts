@@ -18,6 +18,9 @@ const config: Config = {
         sans: ["var(--font-inter)"],
         roboto: ["var(--font-roboto)"],
       },
+      width: {
+        "100": "420px",
+      },
     },
   },
   plugins: [],

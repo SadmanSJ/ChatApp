@@ -53,7 +53,7 @@ export default function ChatBox({
         return data;
       },
     });
-  }, []);
+  }, [subscribeToMore]);
 
   if (error) {
     return <div>{error.message}</div>;

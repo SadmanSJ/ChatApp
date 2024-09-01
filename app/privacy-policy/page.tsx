@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const PrivacyPolicy = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4  overflow-auto">
       <h1 className="text-2xl font-bold mb-4">Privacy Policy</h1>
       <p className="mb-4">Last updated: August 20, 2024</p>
 
@@ -44,21 +44,25 @@ const PrivacyPolicy = () => {
           access our Service or parts of our Service.
         </li>
         <li>
-          <strong>Affiliate</strong> means an entity that controls, is
+          <strong>Affiliate</strong>{" "}
+          {`means an entity that controls, is
           controlled by, or is under common control with a party, where
           "control" means ownership of 50% or more of the shares, equity
           interest, or other securities entitled to vote for the election of
-          directors or other managing authority.
+          directors or other managing authority`}
+          .
         </li>
         <li>
-          <strong>Company</strong> (referred to as either "the Company", "We",
-          "Us", or "Our" in this Agreement) refers to ChatApp.
+          <strong>Company</strong>{" "}
+          {`(referred to as either "the Company", "We",
+          "Us", or "Our" in this Agreement) refers to ChatApp.`}
         </li>
         <li>
-          <strong>Cookies</strong> are small files that are placed on Your
+          <strong>Cookies</strong>{" "}
+          {`are small files that are placed on Your
           computer, mobile device, or any other device by a website, containing
           the details of Your browsing history on that website among its many
-          uses.
+          uses.`}
         </li>
         <li>
           <strong>Country</strong> refers to: Bangladesh
@@ -75,12 +79,13 @@ const PrivacyPolicy = () => {
           <strong>Service</strong> refers to the Website.
         </li>
         <li>
-          <strong>Service Provider</strong> means any natural or legal person
+          <strong>Service Provider</strong>{" "}
+          {`means any natural or legal person
           who processes the data on behalf of the Company. It refers to
           third-party companies or individuals employed by the Company to
           facilitate the Service, to provide the Service on behalf of the
           Company, to perform services related to the Service, or to assist the
-          Company in analyzing how the Service is used.
+          Company in analyzing how the Service is used.`}
         </li>
         <li>
           <strong>Third-party Social Media Service</strong> refers to any
@@ -127,24 +132,24 @@ const PrivacyPolicy = () => {
 
       <h4 className="text-md font-semibold mt-4">Usage Data</h4>
       <p className="mb-4">
-        Usage Data is collected automatically when using the Service. Usage Data
+        {`Usage Data is collected automatically when using the Service. Usage Data
         may include information such as Your Device's Internet Protocol address
         (e.g. IP address), browser type, browser version, the pages of our
         Service that You visit, the time and date of Your visit, the time spent
-        on those pages, unique device identifiers, and other diagnostic data.
+        on those pages, unique device identifiers, and other diagnostic data.`}
       </p>
       <p className="mb-4">
-        When You access the Service by or through a mobile device, We may
+        {`When You access the Service by or through a mobile device, We may
         collect certain information automatically, including, but not limited
         to, the type of mobile device You use, Your mobile device unique ID, the
         IP address of Your mobile device, Your mobile operating system, the type
         of mobile Internet browser You use, unique device identifiers and other
-        diagnostic data.
+        diagnostic data.`}
       </p>
       <p className="mb-4">
-        We may also collect information that Your browser sends whenever You
+        {`  We may also collect information that Your browser sends whenever You
         visit our Service or when You access the Service by or through a mobile
-        device.
+        device.`}
       </p>
 
       <h4 className="text-md font-semibold mt-4">
@@ -162,18 +167,18 @@ const PrivacyPolicy = () => {
         <li>LinkedIn</li>
       </ul>
       <p className="mb-4">
-        If You decide to register through or otherwise grant us access to a
+        {` If You decide to register through or otherwise grant us access to a
         Third-Party Social Media Service, We may collect Personal data that is
         already associated with Your Third-Party Social Media Service's account,
         such as Your name, Your email address, Your activities or Your contact
-        list associated with that account.
+        list associated with that account.`}
       </p>
       <p className="mb-4">
-        You may also have the option of sharing additional information with the
+        {` You may also have the option of sharing additional information with the
         Company through Your Third-Party Social Media Service's account. If You
         choose to provide such information and Personal Data, during
         registration or otherwise, You are giving the Company permission to use,
-        share, and store it in a manner consistent with this Privacy Policy.
+        share, and store it in a manner consistent with this Privacy Policy.`}
       </p>
 
       <h3 className="text-lg font-semibold mt-4">
@@ -194,13 +199,14 @@ const PrivacyPolicy = () => {
           Service.
         </li>
         <li>
-          <strong>Web Beacons</strong>: Certain sections of our Service and our
+          <strong>Web Beacons</strong>:{" "}
+          {`Certain sections of our Service and our
           emails may contain small electronic files known as web beacons (also
           referred to as clear gifs, pixel tags, and single-pixel gifs) that
           permit the Company, for example, to count users who have visited those
           pages or opened an email and for other related website statistics (for
           example, recording the popularity of a certain section and verifying
-          system and server integrity).
+          system and server integrity).`}
         </li>
       </ul>
       <p className="mb-4">
@@ -272,10 +278,10 @@ const PrivacyPolicy = () => {
         Retention of Your Personal Data
       </h2>
       <p className="mb-4">
-        The Company will retain Your Personal Data only for as long as is
+        {`        The Company will retain Your Personal Data only for as long as is
         necessary for the purposes set out in this Privacy Policy. We will
         retain and use Your Personal Data to the extent necessary to comply with
-        our legal obligations.
+        our legal obligations.`}
       </p>
       <p className="mb-4">
         The Company will also retain Usage Data for internal analysis purposes.
@@ -286,11 +292,11 @@ const PrivacyPolicy = () => {
         Transfer of Your Personal Data
       </h2>
       <p className="mb-4">
-        Your information, including Personal Data, is processed at the Company's
+        {` Your information, including Personal Data, is processed at the Company's
         operating offices and in other locations where the parties involved in
         processing are located. This means Your information may be transferred
         to computers located outside of Your state, province, country, or other
-        governmental jurisdiction.
+        governmental jurisdiction.`}
       </p>
       <p className="mb-4">
         The Company will take all steps reasonably necessary to ensure that Your
@@ -339,7 +345,7 @@ const PrivacyPolicy = () => {
         secure.
       </p>
 
-      <h2 className="text-xl font-semibold mt-4">Children's Privacy</h2>
+      <h2 className="text-xl font-semibold mt-4">{`Children's Privacy`}</h2>
       <p className="mb-4">
         Our Service does not address anyone under the age of 13. We do not
         knowingly collect personally identifiable information from anyone under
