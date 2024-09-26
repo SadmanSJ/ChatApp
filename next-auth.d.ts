@@ -5,7 +5,7 @@ import { UserIF } from "./interface";
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
-      _id: string;
+      id: string;
       role: string;
       mobile: string;
       email: string;
@@ -15,7 +15,7 @@ declare module "next-auth" {
   }
 
   interface User extends DefaultUser {
-    _id: string;
+    id: string;
     role: string;
     mobile: string;
     email: string;
@@ -26,7 +26,7 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
-    _id: string;
+    id: string;
     role: string;
     mobile: string;
     email: string;
