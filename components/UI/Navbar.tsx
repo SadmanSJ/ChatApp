@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import ThemeChangeButton from "../Buttons/ThemeChangeButton";
 
 import LogoutButton from "../Buttons/LogoutButton";
@@ -13,6 +13,7 @@ import SearchBar from "./SearchBar";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import Menu from "./Menu";
 
 interface Props {
   isSidebarNav?: boolean;
@@ -20,6 +21,7 @@ interface Props {
 }
 
 function Navbar({ isSidebarNav, isSidebarUserSearch }: Props) {
+  const [showMenu, setShowMenu] = useState(false);
   const { setUserSearchOpen } = useAppStore();
   const navbarStyle = tv({
     base: "w-full sticky top-0 z-30 bg-neutral-800 h-14",
@@ -40,7 +42,11 @@ function Navbar({ isSidebarNav, isSidebarUserSearch }: Props) {
                 size={20}
               />
             ) : (
-              <GiHamburgerMenu className="icon" size={20} />
+              <GiHamburgerMenu
+                className="icon"
+                size={20}
+                onClick={() => setShowMenu(!showMenu)}
+              />
             )}
           </div>
           <SearchBar />
@@ -58,6 +64,7 @@ function Navbar({ isSidebarNav, isSidebarUserSearch }: Props) {
           </div>
         </div>
       )}
+      {showMenu && <Menu />}
     </div>
   );
 
