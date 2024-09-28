@@ -21,7 +21,7 @@ function Sidebar({ session }: Props) {
   const { isSidebarOpen, isShowUserSearchOpen } = useAppStore();
 
   // const { data, error } = useSuspenseQuery<Data>(GetChatRooms, {
-  //   variables: { filter: { createdByID: session.user._id } },
+  //   variables: { filter: { createdByID: session.user.id } },
   // });
 
   // if (error) {

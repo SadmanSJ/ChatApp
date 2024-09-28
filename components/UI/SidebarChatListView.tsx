@@ -33,7 +33,7 @@ function SidebarChatListView({ session, className }: Props) {
   const pathname = usePathname();
 
   const { data, error } = useSuspenseQuery<Data>(GetChatRooms, {
-    variables: { filter: { participant: session.user._id } },
+    variables: { filter: { participant: session.user.id } },
   });
 
   if (error) {

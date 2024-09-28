@@ -32,7 +32,7 @@ function SidebarUserSearchView({ session, className }: Props) {
   }
 
   const handleSetChatRoom = (user: UserIF) => {
-    const participants = [user._id, session.user._id];
+    const participants = [user._id, session.user.id];
     getPersonalChatRoom({
       variables: {
         filter: {
@@ -61,7 +61,7 @@ function SidebarUserSearchView({ session, className }: Props) {
       <Navbar isSidebarNav isSidebarUserSearch />
       <div className="sidebarListView">
         {data.users
-          .filter((f) => f._id !== session.user._id)
+          .filter((f) => f._id !== session.user.id)
           .map((m, i) => (
             <ListCard
               key={i}

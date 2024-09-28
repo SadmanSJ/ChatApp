@@ -85,7 +85,7 @@ export default function ChatBox({
         <div
           key={i}
           className={chatBoxColor().thread({
-            own: session?.user._id === m.sentByUser._id ? true : false,
+            own: session?.user.id === m.sentByUser._id ? true : false,
           })}
         >
           <div>{m.message.text}</div>

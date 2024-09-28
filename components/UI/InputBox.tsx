@@ -31,7 +31,7 @@ export default function InputBox({ currentChatRoom, session }: Props) {
         record: {
           chatRoomID: currentChatRoom?._id,
           message: message,
-          sentByUserID: session?.user._id,
+          sentByUserID: session?.user.id,
         },
       },
       onError(error, clientOptions) {

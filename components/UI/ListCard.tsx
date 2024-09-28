@@ -16,7 +16,7 @@ export default function ListCard({ type, user, onClick, chatRoom }: Props) {
   let title = "";
 
   chatRoom?.participants
-    .filter((f) => f._id !== session?.user._id)
+    .filter((f) => f._id !== session?.user.id)
     .map((m, i) => {
       title = title.concat(m.name || "");
       if (i < chatRoom.participants.length - 2) title.concat(", ");
